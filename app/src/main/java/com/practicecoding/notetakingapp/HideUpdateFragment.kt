@@ -2,7 +2,6 @@ package com.practicecoding.notetakingapp
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Insets.add
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,30 +16,24 @@ import androidx.annotation.RequiresApi
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.practicecoding.notetakingapp.databinding.FragmentHomeBinding
-import com.practicecoding.notetakingapp.databinding.FragmentNewNoteBinding
-import com.practicecoding.notetakingapp.databinding.FragmentUpdateNoteBinding
-import com.practicecoding.notetakingapp.model.Noteadapter
-import com.practicecoding.notetakingapp.model.Noteviewmodel
+import com.practicecoding.notetakingapp.databinding.FragmentHideUpdateBinding
+import com.practicecoding.notetakingapp.model.HideNoteviewmodel
 import com.practicecoding.notetakingapp.room.Note
+import com.practicecoding.notetakingapp.room.NoteHide
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.Date
 
-
-class UpdateNoteFragment : Fragment(R.layout.fragment_update_note) {
-    private var _binding: FragmentUpdateNoteBinding?=null
+class HideUpdateFragment : Fragment(R.layout.fragment_hide_update) {
+    private var _binding: FragmentHideUpdateBinding?=null
     private val binding get() = _binding!!
-    private lateinit var  notesViewmodel: Noteviewmodel
-private lateinit var currentNote: Note
+    private lateinit var  notesViewmodel: HideNoteviewmodel
+    private lateinit var currentNote: NoteHide
 //Since Update notefragment contains arguments in nav_graph
-private val args:UpdateNoteFragmentArgs by navArgs()
+    private val args:HideUpdateFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -48,15 +41,15 @@ private val args:UpdateNoteFragmentArgs by navArgs()
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentUpdateNoteBinding.inflate(inflater,container,false)
+        _binding = FragmentHideUpdateBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        notesViewmodel = (activity as MainActivity).noteViewmodel
-        currentNote = args.note!!
+        notesViewmodel = (activity as MainActivity).hideNoteviewmodel
+        currentNote = args.notes!!
         binding.etNoteTitleUpdate.setText(currentNote.noteTitle)
         binding.etNoteBodyUpdate.setText(currentNote.noteBody)
         binding.txtnoteamount.setText(currentNote.noteAmount)
@@ -73,16 +66,16 @@ private val args:UpdateNoteFragmentArgs by navArgs()
 //                else ->{"Notes"}
 //           }
             if(title.isNotEmpty()){
-                val note = Note(currentNote.id,title,body
+                val note = NoteHide(currentNote.id,title,body
                     ,amount
-                 ,formatter
-                //                 ,paynote
-                        )
-                notesViewmodel.updateNote(note)
-                view.findNavController().navigate(R.id.action_updateNoteFragment_to_homeFragment)
+                    ,formatter
+                    //                 ,paynote
+                )
+                notesViewmodel.updatehideNote(note)
+                view.findNavController().navigate(R.id.action_hideUpdateFragment_to_hidehome)
             }
             else {
-                Toast.makeText(context,"Please enter note title",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Please enter note title", Toast.LENGTH_LONG).show()
             }
         }
         binding.add2.setOnClickListener(){
@@ -90,7 +83,7 @@ private val args:UpdateNoteFragmentArgs by navArgs()
                 add(binding.etNoteAmount.text.toString().toInt())
             }
             else {
-                Toast.makeText(context,"Please Enter Amount",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Please Enter Amount", Toast.LENGTH_LONG).show()
 
             }
         }
@@ -99,7 +92,7 @@ private val args:UpdateNoteFragmentArgs by navArgs()
                 sub(binding.etNoteAmount.text.toString().toInt())
             }
             else {
-                Toast.makeText(context,"Please Enter Amount",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Please Enter Amount", Toast.LENGTH_LONG).show()
 
             }
         }
@@ -112,8 +105,8 @@ private val args:UpdateNoteFragmentArgs by navArgs()
             setTitle("Delete Note")
             setMessage("Are you Sure you want to delete this Note?")
             setPositiveButton("Delete"){_,_,->
-                notesViewmodel.deleteNote(currentNote)
-                view?.findNavController()?.navigate(R.id.action_updateNoteFragment_to_homeFragment)
+                notesViewmodel.deletehideNote(currentNote)
+                findNavController()?.navigate(R.id.action_hideUpdateFragment_to_hidehome)
 
             }
             setNegativeButton("Cancel",null)
@@ -136,14 +129,16 @@ private val args:UpdateNoteFragmentArgs by navArgs()
                     action = Intent.ACTION_SEND
                     if(binding.txtnoteamount.text.toString().toInt()!=0){
                         if(binding.txtnoteamount.text.toString().toInt()>0)
-                        { putExtra(Intent.EXTRA_TEXT,"${binding.etNoteBodyUpdate.text}\n" +
-                            "You have to pay " +
-                            "${binding.txtnoteamount.text} rupees to me")}
-                    else {
-                            putExtra(Intent.EXTRA_TEXT,"${binding.etNoteBodyUpdate.text}\n" +
+                        { putExtra(
+                            Intent.EXTRA_TEXT,"${binding.etNoteBodyUpdate.text}\n" +
+                                "You have to pay " +
+                                "${binding.txtnoteamount.text} rupees to me")}
+                        else {
+                            putExtra(
+                                Intent.EXTRA_TEXT,"${binding.etNoteBodyUpdate.text}\n" +
                                     "I have to pay " +
                                     "${(binding.txtnoteamount.text.toString().toInt())*(-1)} rupees to You")
-                    }}
+                        }}
                     else {
                         putExtra(Intent.EXTRA_TEXT,"${binding.etNoteBodyUpdate.text}")
                     }
@@ -155,9 +150,9 @@ private val args:UpdateNoteFragmentArgs by navArgs()
             }
             R.id.notification->{
 
-                        val direction = UpdateNoteFragmentDirections.
-                    actionUpdateNoteFragmentToNotificationFragment(currentNote,null)
-     findNavController().navigate(direction)
+                val direction = HideUpdateFragmentDirections.
+                actionHideUpdateFragmentToNotificationFragment(null,currentNote)
+                findNavController().navigate(direction)
 
             }
         }

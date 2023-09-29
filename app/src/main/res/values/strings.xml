@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="discription">No Discription</string>
+    <string name="Hide">Hide</string>
+    <string name="cancel">cancel</string>
 </resources>

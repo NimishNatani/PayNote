@@ -13,8 +13,11 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:background="@color/white"
+
             app:cardCornerRadius="5dp"
             app:cardElevation="8dp">
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,6 +74,14 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1" />
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/image_select"
+                        app:srcCompat="@drawable/paynote1"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

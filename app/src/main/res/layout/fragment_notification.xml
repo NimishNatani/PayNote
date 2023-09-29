@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NotificationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:id="@+id/titleedt"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="40dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Message"
+            android:textColor="@color/black"
+            android:id="@+id/disedt"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp">
+        <DatePicker
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:scaleY="0.7"
+            android:id="@+id/datepicker"
+            android:scaleX="0.7"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginRight="-30dp"/>
+        <TimePicker
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/timepicker"
+            android:background="@color/white"
+            android:timePickerMode="spinner"
+            android:layout_gravity="center"
+            android:scaleY="0.7"
+            android:scaleX="0.7"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginRight="-30dp"            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/purple_200"
+        android:text="Schedule Notification"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</LinearLayout>
+</layout>

@@ -12,7 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:itemTextAppearance">@style/chamgetextcolormenu</item>
     </style>
 
     <style name="Theme.NoteTakingapp" parent="Base.Theme.NoteTakingapp" />
+    <style name="chamgetextcolormenu" parent = "@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="notification" parent="Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"/>
 </resources>

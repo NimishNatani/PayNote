@@ -10,6 +10,11 @@
         android:id="@+id/share"
         android:title="Share"
         android:iconTint="@color/black"/>
+    <item
+        android:id="@+id/notification"
+        android:title="Set Notification"
+        android:icon="@drawable/baseline_notifications_24"
+        app:showAsAction="always"/>
     
 
 </menu>
